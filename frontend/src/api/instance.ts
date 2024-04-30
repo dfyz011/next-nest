@@ -9,12 +9,12 @@ async function handleResponse(response: Response) {
 }
 
 export async function get<T>(endpoint: string): Promise<T> {
-	const response = await fetch(`${BASE_URL}/${endpoint}`);
+	const response = await fetch(`${BASE_URL}${endpoint}`);
 	return handleResponse(response) as Promise<T>;
 }
 
 export async function post<T>(endpoint: string, data: any): Promise<T> {
-	const response = await fetch(`${BASE_URL}/${endpoint}`, {
+	const response = await fetch(`${BASE_URL}${endpoint}`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -25,7 +25,7 @@ export async function post<T>(endpoint: string, data: any): Promise<T> {
 }
 
 export async function put<T>(endpoint: string, data: any): Promise<T> {
-	const response = await fetch(`${BASE_URL}/${endpoint}`, {
+	const response = await fetch(`${BASE_URL}${endpoint}`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
@@ -36,7 +36,7 @@ export async function put<T>(endpoint: string, data: any): Promise<T> {
 }
 
 export async function del<T>(endpoint: string): Promise<T> {
-	const response = await fetch(`${BASE_URL}/${endpoint}`, {
+	const response = await fetch(`${BASE_URL}${endpoint}`, {
 		method: "DELETE",
 	});
 	return handleResponse(response) as Promise<T>;

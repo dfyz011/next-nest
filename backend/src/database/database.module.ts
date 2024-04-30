@@ -13,9 +13,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         database: configService.get('database.database'),
         host: configService.get('database.host'),
         port: configService.get('database.port'),
-        entities: [],
+        autoLoadEntities: true,
         // для дева
-        sync: { force: true },
+        synchronize: true,
       }),
       inject: [ConfigService],
     }),

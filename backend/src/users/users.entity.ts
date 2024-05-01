@@ -15,7 +15,10 @@ export class User {
   @Column()
   name: string;
 
-  @ManyToOne(() => User, (user) => user.subordinates)
+  @ManyToOne(() => User, (user) => user.subordinates, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'headId' })
   head: User;
 

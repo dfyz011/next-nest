@@ -2,28 +2,8 @@ import React, { useEffect, useState } from "react";
 import { get } from "@/api/instance";
 import { UserForm } from "@/feature/user/UserCreateForm";
 import { Accordion } from "@/components/Accordion";
-
-interface User {
-	id: number;
-	name: string;
-	subordinates: User[];
-}
-
-const UserNode = ({ user }: { user: User }) => (
-	<li>
-		{user.name}
-		{user.subordinates && user.subordinates.length > 0 && (
-			<ul>
-				{user.subordinates.map((sub) => (
-					<UserNode key={sub.id} user={sub} />
-				))}
-			</ul>
-		)}
-		<Accordion>
-			<UserForm headId={user.id} />
-		</Accordion>
-	</li>
-);
+import { UserNode } from "@/feature/user/UserNode";
+import { User } from "@/feature/user/type";
 
 const fetchUsersWithHierarchy = async () => {
 	try {

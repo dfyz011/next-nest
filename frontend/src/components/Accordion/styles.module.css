@@ -1,0 +1,41 @@
+.accordion {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.accordion_open {
+  border-color: #007bff;
+}
+
+.accordion__button {
+  background-color: #f8f9fa;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.accordion__button:hover {
+  background-color: #e9ecef;
+}
+
+.accordion__sign {
+  float: right;
+}
+
+.accordion__content {
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  max-height: 0;
+}
+
+.accordion_open .accordion__content {
+  max-height: 1000px;
+}
+
+.accordion__content_inner {
+  padding: 10px;
+}

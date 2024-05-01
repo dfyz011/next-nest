@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { UserForm } from "@/feature/user/UserCreateForm";
-import { Accordion } from "@/components/Accordion";
+import { Accordion } from "@/components/Accordion/Accordion";
 import { User } from "./type";
 import { UserDeleteButton } from "./UserDeleteButton/UserDeleteButton";
 import { UserUnassignButton } from "./UserUnassignButton/UserUnassignButton";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { get } from "@/api/instance";
 import { UserForm } from "@/feature/user/UserCreateForm";
-import { Accordion } from "@/components/Accordion";
+import { Accordion } from "@/components/Accordion/Accordion";
 import { UserNode } from "@/feature/user/UserNode";
 import { User } from "@/feature/user/type";
 

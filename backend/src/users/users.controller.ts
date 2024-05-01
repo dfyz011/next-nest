@@ -24,6 +24,12 @@ export class UsersController {
   findAll() {
     return this.userService.findAll();
   }
+
+  @Get('/tree')
+  findAllTree() {
+    return this.userService.findAllTree();
+  }
+
   @Get('/for-assign')
   findAllForAssign() {
     return this.userService.findAllForAssign();

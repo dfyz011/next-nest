@@ -9,18 +9,27 @@ import { UserAssignForm } from "../UserAssignForm";
 
 export const UserItem = ({
 	user,
-	actions,
 	children,
 }: {
 	user: User;
-	actions: ReactNode;
 	children?: ReactNode;
 }) => {
 	return (
 		<li>
 			<div style={{ display: "flex", gap: "16px" }}>
 				{user.name}
-				{actions}
+				<ButtonedContextMenu>
+					<UserDeleteButton userId={user.id} />
+					<ButtonedModal text="Create">
+						<p>Create subordinate for {user.name}</p>
+						<UserForm headId={user.id} />
+					</ButtonedModal>
+					<ButtonedModal text="Assign">
+						<p>Assign subordinate for {user.name}</p>
+						<UserAssignForm headId={user.id} />
+					</ButtonedModal>
+					{user.head && <UserUnassignButton userId={user.id} />}
+				</ButtonedContextMenu>
 			</div>
 			{children}
 		</li>
@@ -28,30 +37,11 @@ export const UserItem = ({
 };
 
 export const UserNode = ({ user }: { user: User }) => (
-	<UserItem
-		user={user}
-		actions={
-			<ButtonedContextMenu>
-				<UserDeleteButton userId={user.id} />
-				<ButtonedModal text="Create">
-					<p>Create subordinate for {user.name}</p>
-					<UserForm headId={user.id} />
-				</ButtonedModal>
-				<ButtonedModal text="Assign">
-					<p>Assign subordinate for {user.name}</p>
-					<UserAssignForm headId={user.id} />
-				</ButtonedModal>
-			</ButtonedContextMenu>
-		}
-	>
+	<UserItem user={user}>
 		{user.subordinates && user.subordinates.length > 0 && (
 			<ul>
 				{user.subordinates.map((sub) => (
-					<UserItem
-						key={sub.id}
-						user={sub}
-						actions={<UserUnassignButton userId={sub.id} />}
-					></UserItem>
+					<UserNode key={sub.id} user={sub} />
 				))}
 			</ul>
 		)}

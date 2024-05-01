@@ -8,7 +8,7 @@ import { ButtonedModal } from "@/components/ButtonedModal/ButtonedModal";
 
 const fetchUsersWithHierarchy = async () => {
 	try {
-		const users = await get<User[]>("/users");
+		const users = await get<User[]>("/users/tree");
 		return users;
 	} catch (error) {
 		console.error("Failed to fetch users", error);

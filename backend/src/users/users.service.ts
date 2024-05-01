@@ -31,6 +31,26 @@ export class UsersService {
     });
   }
 
+  private fillSubordinates(user: User, users: User[]): User {
+    const subordinates = users.filter(
+      (subordinate) => subordinate.headId === user.id,
+    );
+    if (subordinates && subordinates.length > 0) {
+      user.subordinates = subordinates.map((subordinate) =>
+        this.fillSubordinates(subordinate, users),
+      );
+    }
+    return user;
+  }
+
+  async findAllTree(): Promise<User[]> {
+    const users = await this.userRepository.find({
+      relations: { head: true, subordinates: true },
+    });
+    const rootUsers = users.filter((user) => !user.head);
+    return rootUsers.map((user) => this.fillSubordinates(user, users));
+  }
+
   async findOne(id: number): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { id },

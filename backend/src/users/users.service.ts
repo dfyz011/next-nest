@@ -51,4 +51,10 @@ export class UsersService {
     user.head = head;
     return this.userRepository.save(user);
   }
+
+  async unAssignHead(userId: number): Promise<User> {
+    const user = await this.findOne(userId);
+    user.head = null;
+    return this.userRepository.save(user);
+  }
 }

@@ -44,4 +44,9 @@ export class UsersController {
   assignHead(@Param('userId') userId: number, @Param('headId') headId: number) {
     return this.userService.assignHead(userId, headId);
   }
+
+  @Delete(':userId/unassign')
+  unAssignHead(@Param('userId') userId: number) {
+    return this.userService.unAssignHead(userId);
+  }
 }

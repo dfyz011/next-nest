@@ -24,6 +24,10 @@ export class UsersController {
   findAll() {
     return this.userService.findAll();
   }
+  @Get('/for-assign')
+  findAllForAssign() {
+    return this.userService.findAllForAssign();
+  }
 
   @Get(':id')
   findOne(@Param('id') id: number) {
@@ -40,8 +44,21 @@ export class UsersController {
     return this.userService.remove(id);
   }
 
+  @Post(':headId/assign')
+  assignHeadToMany(
+    @Param('headId') headId: number,
+    @Body() body: { userIds: number[] },
+  ) {
+    return Promise.all(
+      body.userIds.map((id) => this.userService.assignHead(id, headId)),
+    );
+  }
+
   @Put(':userId/assign/:headId')
-  assignHead(@Param('userId') userId: number, @Param('headId') headId: number) {
+  assignHeadToUser(
+    @Param('userId') userId: number,
+    @Param('headId') headId: number,
+  ) {
     return this.userService.assignHead(userId, headId);
   }
 

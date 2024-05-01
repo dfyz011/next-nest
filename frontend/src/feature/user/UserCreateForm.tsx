@@ -2,7 +2,7 @@ import { post } from "@/api/instance";
 import { SubmitButton } from "@/components/SubmitButton";
 import { revalidatePath } from "next/cache";
 
-const createUser =
+const createCreateUser =
 	(headId: number | undefined) => async (formData: FormData) => {
 		"use server";
 		try {
@@ -31,7 +31,7 @@ interface UserFormProps {
 
 export const UserForm = ({ headId, afterSubmit }: UserFormProps) => {
 	return (
-		<form action={createUser(headId)}>
+		<form action={createCreateUser(headId)}>
 			<label>
 				Name:
 				<input type="text" required name="name" />

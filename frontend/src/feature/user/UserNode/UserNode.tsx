@@ -5,7 +5,7 @@ import { UserDeleteButton } from "../UserDeleteButton/UserDeleteButton";
 import { UserUnassignButton } from "../UserUnassignButton/UserUnassignButton";
 import { ButtonedModal } from "@/components/ButtonedModal/ButtonedModal";
 import { ButtonedContextMenu } from "@/components/ContextMenu/ButtonedContextMenu";
-import styles from "./styles.module.css";
+import { UserAssignForm } from "../UserAssignForm";
 
 export const UserItem = ({
 	user,
@@ -36,6 +36,10 @@ export const UserNode = ({ user }: { user: User }) => (
 				<ButtonedModal text="Create">
 					<p>Create subordinate for {user.name}</p>
 					<UserForm headId={user.id} />
+				</ButtonedModal>
+				<ButtonedModal text="Assign">
+					<p>Assign subordinate for {user.name}</p>
+					<UserAssignForm headId={user.id} />
 				</ButtonedModal>
 			</ButtonedContextMenu>
 		}

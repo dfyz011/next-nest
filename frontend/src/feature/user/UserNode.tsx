@@ -4,6 +4,7 @@ import { Accordion } from "@/components/Accordion/Accordion";
 import { User } from "./type";
 import { UserDeleteButton } from "./UserDeleteButton/UserDeleteButton";
 import { UserUnassignButton } from "./UserUnassignButton/UserUnassignButton";
+import { ButtonedModal } from "@/components/ButtonedModal/ButtonedModal";
 
 export const UserItem = ({
 	user,
@@ -32,8 +33,9 @@ export const UserNode = ({ user }: { user: User }) => (
 				))}
 			</ul>
 		)}
-		<Accordion>
+		<ButtonedModal text="Create">
+			<p>Create subordinate for {user.name}</p>
 			<UserForm headId={user.id} />
-		</Accordion>
+		</ButtonedModal>
 	</UserItem>
 );

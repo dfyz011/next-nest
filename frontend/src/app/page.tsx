@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { get } from "@/api/instance";
 import { UserForm } from "@/feature/user/UserCreateForm";
+import { Accordion } from "@/components/Accordion";
 
 interface User {
 	id: number;
@@ -18,7 +19,9 @@ const UserNode = ({ user }: { user: User }) => (
 				))}
 			</ul>
 		)}
-		<UserForm headId={user.id} />
+		<Accordion>
+			<UserForm headId={user.id} />
+		</Accordion>
 	</li>
 );
 
@@ -43,7 +46,9 @@ const TreePage = async () => {
 					<UserNode key={user.id} user={user} />
 				))}
 			</ul>
-			<UserForm />
+			<Accordion>
+				<UserForm />
+			</Accordion>
 		</div>
 	);
 };

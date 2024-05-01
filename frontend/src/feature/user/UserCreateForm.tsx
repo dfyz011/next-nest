@@ -1,4 +1,23 @@
-import { useState, FormEvent } from "react";
+import { post } from "@/api/instance";
+import { SubmitButton } from "@/components/SubmitButton";
+import { revalidatePath } from "next/cache";
+
+const createUser =
+	(headId: number | undefined) => async (formData: FormData) => {
+		"use server";
+		try {
+			const rawFormData = {
+				...(headId && { headId }),
+				name: formData.get("name"),
+			};
+			const user = await post<User>("/users", rawFormData);
+			revalidatePath("/");
+			return user;
+		} catch (error) {
+			console.error("Failed to fetch users", error);
+			return [];
+		}
+	};
 
 interface User {
 	id?: number;
@@ -6,30 +25,18 @@ interface User {
 }
 
 interface UserFormProps {
-	user?: User;
-	onSubmit: (user: User) => void;
+	headId?: number;
+	afterSubmit?: (user: User) => void;
 }
 
-export const UserForm = ({ user, onSubmit }: UserFormProps) => {
-	const [name, setName] = useState(user ? user.name : "");
-
-	const handleSubmit = (e: FormEvent) => {
-		e.preventDefault();
-		onSubmit({ ...user, name });
-	};
-
+export const UserForm = ({ headId, afterSubmit }: UserFormProps) => {
 	return (
-		<form onSubmit={handleSubmit}>
+		<form action={createUser(headId)}>
 			<label>
 				Name:
-				<input
-					type="text"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-					required
-				/>
+				<input type="text" required name="name" />
 			</label>
-			<button type="submit">Submit</button>
+			<SubmitButton>Create</SubmitButton>
 		</form>
 	);
 };

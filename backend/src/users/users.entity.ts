@@ -16,8 +16,11 @@ export class User {
   name: string;
 
   @ManyToOne(() => User, (user) => user.subordinates)
-  @JoinColumn()
+  @JoinColumn({ name: 'headId' })
   head: User;
+
+  @Column({ type: 'int', nullable: true })
+  headId: number;
 
   @OneToMany(() => User, (user) => user.head)
   subordinates: User[];

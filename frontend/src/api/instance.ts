@@ -5,7 +5,7 @@ async function handleResponse(response: Response) {
 		const errorData = await response.json();
 		throw new Error(errorData.message || "Failed to fetch data");
 	}
-	return response.json();
+	return (await response.json().catch(() => {})) || "";
 }
 
 export async function get<T>(endpoint: string): Promise<T> {

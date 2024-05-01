@@ -1,6 +1,6 @@
 import React from "react";
 import { get } from "@/api/instance";
-import { UserForm } from "@/feature/user/UserCreateForm";
+import { UserCreateForm } from "@/feature/user/UserCreateForm";
 import { UserNode } from "@/feature/user/UserNode/UserNode";
 import styles from "@/feature/user/UserNode/styles.module.css";
 import { User } from "@/feature/user/type";
@@ -29,7 +29,7 @@ const TreePage = async () => {
 			</ul>
 			<ButtonedModal text="Create">
 				<p>Create new user</p>
-				<UserForm />
+				<UserCreateForm />
 			</ButtonedModal>
 		</div>
 	);

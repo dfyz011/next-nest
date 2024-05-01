@@ -29,7 +29,7 @@ interface UserFormProps {
 	afterSubmit?: (user: User) => void;
 }
 
-export const UserForm = ({ headId, afterSubmit }: UserFormProps) => {
+export const UserCreateForm = ({ headId, afterSubmit }: UserFormProps) => {
 	return (
 		<form action={createCreateUser(headId)}>
 			<label>

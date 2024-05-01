@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { UserForm } from "@/feature/user/UserCreateForm";
+import { UserCreateForm } from "@/feature/user/UserCreateForm";
 import { User } from "../type";
 import { UserDeleteButton } from "../UserDeleteButton/UserDeleteButton";
 import { UserUnassignButton } from "../UserUnassignButton/UserUnassignButton";
@@ -22,7 +22,7 @@ export const UserItem = ({
 					<UserDeleteButton userId={user.id} />
 					<ButtonedModal text="Create">
 						<p>Create subordinate for {user.name}</p>
-						<UserForm headId={user.id} />
+						<UserCreateForm headId={user.id} />
 					</ButtonedModal>
 					<ButtonedModal text="Assign">
 						<p>Assign subordinate for {user.name}</p>

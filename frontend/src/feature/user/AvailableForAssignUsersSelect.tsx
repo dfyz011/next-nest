@@ -1,6 +1,8 @@
+"use client";
+
 import { get } from "@/api/instance";
 import { User } from "./type";
-import { SelectHTMLAttributes } from "react";
+import { SelectHTMLAttributes, useEffect, useState } from "react";
 
 type AvailableForAssignUsersSelectProps = SelectHTMLAttributes<unknown> & {
 	headId: number;
@@ -16,11 +18,21 @@ const fetchUsersForAssign = async () => {
 	}
 };
 
-export const AvailableForAssignUsersSelect = async ({
+export const AvailableForAssignUsersSelect = ({
 	headId,
 	...rest
 }: AvailableForAssignUsersSelectProps) => {
-	const users = await fetchUsersForAssign();
+	const [users, setUsers] = useState<User[]>([]);
+
+	useEffect(() => {
+		const init = async () => {
+			const users = await fetchUsersForAssign();
+			setUsers(users);
+		};
+
+		init();
+	}, []);
+
 	return (
 		<select {...rest}>
 			{users.map(

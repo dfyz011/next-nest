@@ -1,12 +1,11 @@
 import React, { ReactNode } from "react";
-import { UserCreateForm } from "@/feature/user/UserCreateForm/UserCreateForm";
 import { User } from "../type";
 import { UserDeleteButton } from "../UserDeleteButton/UserDeleteButton";
 import { UserUnassignButton } from "../UserUnassignButton/UserUnassignButton";
 import { ButtonedModal } from "@/components/ButtonedModal/ButtonedModal";
 import { ButtonedContextMenu } from "@/components/ContextMenu/ButtonedContextMenu";
-import { UserAssignForm } from "../UserAssignForm";
 import { ModaledUserCreateForm } from "../UserCreateForm/ModaledUserCreateForm";
+import { ModaledUserAssignForm } from "../UserAssignForm/ModaledUserAssignForm";
 
 export const UserItem = ({
 	user,
@@ -28,8 +27,10 @@ export const UserItem = ({
 						/>
 					</ButtonedModal>
 					<ButtonedModal text="Assign">
-						<p>Assign subordinate for {user.name}</p>
-						<UserAssignForm headId={user.id} />
+						<ModaledUserAssignForm
+							title={`Assign subordinate for ${user.name}`}
+							headId={user.id}
+						/>
 					</ButtonedModal>
 					{user.head && <UserUnassignButton userId={user.id} />}
 				</ButtonedContextMenu>

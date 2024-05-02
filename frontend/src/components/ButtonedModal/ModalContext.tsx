@@ -1,4 +1,6 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+"use client";
+
+import { createContext } from "react";
 
 export const ModalContext = createContext<{
 	closeModal: () => void;

@@ -1,10 +1,11 @@
 import React from "react";
 import { get } from "@/api/instance";
-import { UserCreateForm } from "@/feature/user/UserCreateForm";
+import { UserCreateForm } from "@/feature/user/UserCreateForm/UserCreateForm";
 import { UserNode } from "@/feature/user/UserNode/UserNode";
 import styles from "@/feature/user/UserNode/styles.module.css";
 import { User } from "@/feature/user/type";
 import { ButtonedModal } from "@/components/ButtonedModal/ButtonedModal";
+import { ModaledUserCreateForm } from "@/feature/user/UserCreateForm/ModaledUserCreateForm";
 
 const fetchUsersWithHierarchy = async () => {
 	try {
@@ -28,8 +29,7 @@ const TreePage = async () => {
 				))}
 			</ul>
 			<ButtonedModal text="Create">
-				<p>Create new user</p>
-				<UserCreateForm />
+				<ModaledUserCreateForm title="Create new user" />
 			</ButtonedModal>
 		</div>
 	);

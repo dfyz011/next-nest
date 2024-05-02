@@ -1,28 +1,6 @@
-import { post } from "@/api/instance";
 import { SubmitButton } from "@/components/SubmitButton";
-import { revalidatePath } from "next/cache";
 import { FormEventHandler } from "react";
-
-const createUser = async (headId: number | undefined, formData: FormData) => {
-	"use server";
-	try {
-		const rawFormData = {
-			...(headId && { headId }),
-			name: formData.get("name"),
-		};
-		const user = await post<User>("/users", rawFormData);
-		revalidatePath("/");
-		return user;
-	} catch (error) {
-		console.error("Failed to fetch users", error);
-		return [];
-	}
-};
-
-interface User {
-	id?: number;
-	name: string;
-}
+import { createUser } from "./actions";
 
 interface UserFormProps {
 	headId?: number;

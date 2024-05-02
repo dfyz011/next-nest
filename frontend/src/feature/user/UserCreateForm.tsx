@@ -1,6 +1,7 @@
 import { post } from "@/api/instance";
 import { SubmitButton } from "@/components/SubmitButton";
 import { revalidatePath } from "next/cache";
+import { FormEventHandler } from "react";
 
 const createUser = async (headId: number | undefined, formData: FormData) => {
 	"use server";
@@ -25,14 +26,14 @@ interface User {
 
 interface UserFormProps {
 	headId?: number;
-	afterSubmit?: (user: User) => void;
+	onSubmit?: FormEventHandler;
 }
 
-export const UserCreateForm = ({ headId, afterSubmit }: UserFormProps) => {
+export const UserCreateForm = ({ headId, onSubmit }: UserFormProps) => {
 	const createUserWithHead = createUser.bind(null, headId);
 
 	return (
-		<form action={createUserWithHead}>
+		<form action={createUserWithHead} onSubmit={onSubmit}>
 			<label>
 				Name:
 				<input type="text" required name="name" />

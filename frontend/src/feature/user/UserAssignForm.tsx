@@ -2,6 +2,7 @@ import { post } from "@/api/instance";
 import { SubmitButton } from "@/components/SubmitButton";
 import { revalidatePath } from "next/cache";
 import { AvailableForAssignUsersSelect } from "./AvailableForAssignUsersSelect";
+import { FormEventHandler } from "react";
 
 const assignUsers = async (headId: number | undefined, formData: FormData) => {
 	"use server";
@@ -25,14 +26,14 @@ interface User {
 
 interface UserFormProps {
 	headId: number;
-	afterSubmit?: (user: User) => void;
+	onSubmit?: FormEventHandler;
 }
 
-export const UserAssignForm = ({ headId, afterSubmit }: UserFormProps) => {
+export const UserAssignForm = ({ headId, onSubmit }: UserFormProps) => {
 	const assignUsersToHead = assignUsers.bind(null, headId);
 
 	return (
-		<form action={assignUsersToHead}>
+		<form action={assignUsersToHead} onSubmit={onSubmit}>
 			<label>
 				User:
 				<AvailableForAssignUsersSelect

@@ -2,22 +2,21 @@ import { post } from "@/api/instance";
 import { SubmitButton } from "@/components/SubmitButton";
 import { revalidatePath } from "next/cache";
 
-const createCreateUser =
-	(headId: number | undefined) => async (formData: FormData) => {
-		"use server";
-		try {
-			const rawFormData = {
-				...(headId && { headId }),
-				name: formData.get("name"),
-			};
-			const user = await post<User>("/users", rawFormData);
-			revalidatePath("/");
-			return user;
-		} catch (error) {
-			console.error("Failed to fetch users", error);
-			return [];
-		}
-	};
+const createUser = async (headId: number | undefined, formData: FormData) => {
+	"use server";
+	try {
+		const rawFormData = {
+			...(headId && { headId }),
+			name: formData.get("name"),
+		};
+		const user = await post<User>("/users", rawFormData);
+		revalidatePath("/");
+		return user;
+	} catch (error) {
+		console.error("Failed to fetch users", error);
+		return [];
+	}
+};
 
 interface User {
 	id?: number;
@@ -30,8 +29,10 @@ interface UserFormProps {
 }
 
 export const UserCreateForm = ({ headId, afterSubmit }: UserFormProps) => {
+	const createUserWithHead = createUser.bind(null, headId);
+
 	return (
-		<form action={createCreateUser(headId)}>
+		<form action={createUserWithHead}>
 			<label>
 				Name:
 				<input type="text" required name="name" />

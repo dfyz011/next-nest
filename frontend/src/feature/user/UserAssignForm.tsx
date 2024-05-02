@@ -3,21 +3,20 @@ import { SubmitButton } from "@/components/SubmitButton";
 import { revalidatePath } from "next/cache";
 import { AvailableForAssignUsersSelect } from "./AvailableForAssignUsersSelect";
 
-const createAssignUsersToHead =
-	(headId: number | undefined) => async (formData: FormData) => {
-		"use server";
-		try {
-			const rawFormData = {
-				userIds: formData.getAll("userIds"),
-			};
-			const users = await post<User>(`/users/${headId}/assign`, rawFormData);
-			revalidatePath("/");
-			return users;
-		} catch (error) {
-			console.error("Failed to fetch users", error);
-			return [];
-		}
-	};
+const assignUsers = async (headId: number | undefined, formData: FormData) => {
+	"use server";
+	try {
+		const rawFormData = {
+			userIds: formData.getAll("userIds"),
+		};
+		const users = await post<User>(`/users/${headId}/assign`, rawFormData);
+		revalidatePath("/");
+		return users;
+	} catch (error) {
+		console.error("Failed to fetch users", error);
+		return [];
+	}
+};
 
 interface User {
 	id?: number;
@@ -30,8 +29,10 @@ interface UserFormProps {
 }
 
 export const UserAssignForm = ({ headId, afterSubmit }: UserFormProps) => {
+	const assignUsersToHead = assignUsers.bind(null, headId);
+
 	return (
-		<form action={createAssignUsersToHead(headId)}>
+		<form action={assignUsersToHead}>
 			<label>
 				User:
 				<AvailableForAssignUsersSelect

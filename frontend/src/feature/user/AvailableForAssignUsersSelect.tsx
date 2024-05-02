@@ -34,7 +34,7 @@ export const AvailableForAssignUsersSelect = ({
 	}, []);
 
 	return (
-		<select {...rest}>
+		<select style={{ width: "100px" }} {...rest}>
 			{users.map(
 				(user) =>
 					user.id !== headId && (

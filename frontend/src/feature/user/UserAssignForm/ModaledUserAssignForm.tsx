@@ -13,7 +13,13 @@ export const ModaledUserAssignForm = ({ title, headId }: Props) => {
 
 	return (
 		<>
-			<p>{title}</p>
+			<p
+				style={{
+					textAlign: "center",
+				}}
+			>
+				{title}
+			</p>
 			<UserAssignForm headId={headId} onSubmit={closeModal} />
 		</>
 	);
